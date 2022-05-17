@@ -1,29 +1,25 @@
-import {CaseReducer, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {TodoType} from "../App";
-import {v1} from "uuid";
+import {addTodo, removeTodo, toggleStatusTodo} from "./actions";
 
-type State = TodoType[]
+export type State = TodoType[]
 
 const initialState: State = []
 
 
-const addTodo: CaseReducer<State, PayloadAction<{text: string}>> = (state, action) => {
-    state.push({
-        id: v1(),
-        completed: false,
-        ...action.payload
-    })
-}
+
 
 const todoSlice = createSlice({
     name: 'todos',
     initialState,
     reducers: {
         addTodo,
-        removeTodo(state, action) {},
-        toggleStatusTodo(state, action) {},
+        removeTodo,
+        toggleStatusTodo,
     },
 })
 
 export const addTodoAC = todoSlice.actions.addTodo
+export const removeTodoAC = todoSlice.actions.removeTodo
+export const toggleStatusTodoAC = todoSlice.actions.toggleStatusTodo
 export default todoSlice.reducer

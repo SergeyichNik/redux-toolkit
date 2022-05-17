@@ -18,15 +18,10 @@ function App() {
     const dispatch = useDispatch()
     const [text, setText] = useState('')
 
-    const addTodo = () => dispatch(addTodoAC({text}))
-
-    // const removeTodo = (id: string) => {
-    //
-    // }
-
-    // const toggleStatusTodo = (id: string) => {
-    //
-    // }
+    const addTodo = () => {
+        dispatch(addTodoAC({text}));
+        setText('')
+    }
 
     return (
         <div className="App">
