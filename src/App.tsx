@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import './App.css';
-import {v1} from "uuid";
+
 import TodoList from "./components/TodoList";
 import InputField from "./components/InputField";
+import {useDispatch} from "react-redux";
+import {addTodoAC} from "./store/todoSlice";
+
 
 export type TodoType = {
     id: string,
@@ -12,36 +15,23 @@ export type TodoType = {
 
 function App() {
 
-    const [todos, setTodos] = useState<TodoType[]>([])
+    const dispatch = useDispatch()
     const [text, setText] = useState('')
 
-    const addTodo = () => {
-        if (text.trim().length) {
-            setTodos([
-                ...todos,
-                {
-                    id: v1(),
-                    text,
-                    completed: false
-                }
-            ])
-            setText('')
-        }
+    const addTodo = () => dispatch(addTodoAC({text}))
 
-    }
+    // const removeTodo = (id: string) => {
+    //
+    // }
 
-    const removeTodo = (id: string) => {
-        setTodos(todos.filter(todo => todo.id !== id))
-    }
-
-    const toggleStatusTodo = (id: string) => {
-        setTodos(todos.map(todo => todo.id === id ? {...todo, completed: !todo.completed} : todo))
-    }
+    // const toggleStatusTodo = (id: string) => {
+    //
+    // }
 
     return (
         <div className="App">
             <InputField text={text} setText={setText} addTodo={addTodo}/>
-            <TodoList todos={todos} toggleStatusTodo={toggleStatusTodo} removeTodo={removeTodo}/>
+            <TodoList/>
         </div>
     );
 }

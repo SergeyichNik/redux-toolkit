@@ -6,8 +6,11 @@ type PropsType = {
 }
 const InputField: FC<PropsType> = ({addTodo, setText, text}) => {
     return (
-        <label htmlFor="">
-            <input value={text} onChange={(e ) => setText(e.currentTarget.value)}/>
+        <label>
+            <input placeholder={"Enter new todo..."}
+                   value={text}
+                   onChange={(e ) => setText(e.currentTarget.value)}
+            />
             <button onClick={addTodo}>Add</button>
         </label>
     );

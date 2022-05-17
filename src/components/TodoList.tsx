@@ -1,19 +1,18 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {TodoType} from "../App";
 import TodoItem from "./TodoItem";
+import {useSelector} from "react-redux";
+import {RootStateType} from "../store";
 
-type PropsType = {
-    todos: TodoType[],
-    toggleStatusTodo: (id: string) => void,
-    removeTodo: (id: string) => void
-}
 
-const TodoList: FC<PropsType> = ({todos, removeTodo, toggleStatusTodo}) => {
+const TodoList = () => {
+
+    const todos = useSelector<RootStateType, TodoType[]>((state) => state.todos)
 
     const displayTodos = todos.map(todo => <TodoItem {...todo}
-                                                     toggleStatusTodo={toggleStatusTodo}
+                                                     toggleStatusTodo={() => {}}
                                                      key={todo.id}
-                                                     removeTodo={removeTodo}/>
+                                                     removeTodo={() => {}}/>
     )
 
     return (
