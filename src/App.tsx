@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import './App.css';
 import {v1} from "uuid";
+import TodoList from "./components/TodoList";
+import InputField from "./components/InputField";
 
-type TodoType = {
+export type TodoType = {
     id: string,
     text: string,
     completed: boolean
@@ -38,19 +40,8 @@ function App() {
 
     return (
         <div className="App">
-            <label htmlFor="">
-                <input value={text} onChange={(e ) => setText(e.currentTarget.value)}/>
-                <button onClick={addTodo}>Add</button>
-            </label>
-            <ul>
-                {
-                    todos.map(todo => <li key={todo.id}>
-                        <input checked={todo.completed} onChange={() => toggleStatusTodo(todo.id)} type="checkbox"/>
-                        <span>{todo.text}</span>
-                        <span onClick={() => removeTodo(todo.id)} className={"delete"}>&times;</span>
-                    </li>)
-                }
-            </ul>
+            <InputField text={text} setText={setText} addTodo={addTodo}/>
+            <TodoList todos={todos} toggleStatusTodo={toggleStatusTodo} removeTodo={removeTodo}/>
         </div>
     );
 }
