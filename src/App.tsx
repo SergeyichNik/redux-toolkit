@@ -28,6 +28,14 @@ function App() {
 
     }
 
+    const removeTodo = (id: string) => {
+        setTodos(todos.filter(todo => todo.id !== id))
+    }
+
+    const toggleStatusTodo = (id: string) => {
+        setTodos(todos.map(todo => todo.id === id ? {...todo, completed: !todo.completed} : todo))
+    }
+
     return (
         <div className="App">
             <label htmlFor="">
@@ -37,9 +45,9 @@ function App() {
             <ul>
                 {
                     todos.map(todo => <li key={todo.id}>
-                        <input type="checkbox"/>
+                        <input checked={todo.completed} onChange={() => toggleStatusTodo(todo.id)} type="checkbox"/>
                         <span>{todo.text}</span>
-                        <span style={{color: 'red'}}>&times;</span>
+                        <span onClick={() => removeTodo(todo.id)} className={"delete"}>&times;</span>
                     </li>)
                 }
             </ul>
